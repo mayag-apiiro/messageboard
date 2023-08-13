@@ -1,6 +1,5 @@
 # Pull the official base image
-FROM postgres:13.0-alpine
-
+FROM postgres:latest
 # Set environment variables 
 ENV POSTGRES_USER yourUsername
 ENV POSTGRES_PASSWORD yourPassword

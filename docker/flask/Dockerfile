@@ -5,7 +5,8 @@ FROM python:3.7-slim
 # RUN pip install --no-cache-dir -r requirements.txt
 RUN pip install flask
 RUN pip install flask_restful
-
+RUN apt-get update && apt-get install -y libpq-dev
+RUN pip install psycopg2-binary
 
 # Set the working directory in the container
 WORKDIR /app
