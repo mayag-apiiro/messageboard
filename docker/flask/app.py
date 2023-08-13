@@ -118,7 +118,7 @@ class DeleteResource(Resource):
 
 api.add_resource(HelloWorld, '/')
 api.add_resource(NewPost, '/new-post')
-api.add_resource(DeleteResource, '/')
+api.add_resource(DeleteResource, '/delete-all')
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
