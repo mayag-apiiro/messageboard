@@ -90,9 +90,31 @@ class NewPost(Resource):
 
 class DeleteResource(Resource):
     def delete(self):
-        id = request.args.get('id')
-        # Delete resource with specified ID
-        return {'message': f'Deleted resource with ID {id}'}
+        try:
+            # Connect to the PostgreSQL database
+            connection = psycopg2.connect(
+                user="postgres",
+                password="1234",
+                host="db",  # This corresponds to the service name in Docker Compose
+                port="5432",
+                database="postgres"
+            )
+            cursor = connection.cursor()
+
+            # Delete all entries from the table
+            delete_query = "DELETE FROM messages"
+            cursor.execute(delete_query)
+            connection.commit()
+
+            # Close the database connection
+            cursor.close()
+            connection.close()
+
+            return {'message': 'All entries have been deleted'}
+
+        except:
+            app.logger.exception("Something went wrong while deleting entries")
+            return jsonify({'error': 'Failed to delete entries'}), 500
 
 api.add_resource(HelloWorld, '/')
 api.add_resource(NewPost, '/new-post')
